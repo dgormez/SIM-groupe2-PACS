@@ -1,0 +1,22 @@
+Installer l’emploi de la carte d’identité électronique belge sur Linux Mint est assez simple.
+Dans le Terminal, il suffit de taper ce code pour que les pilotes soient installés.
+Tous les lecteurs de cartes compatibles CCID seront reconnus.
+
+sudo apt-get install pcscd libccid
+
+Comme j’ai le bonheur d’utiliser un lecteur de type ACR38U, vieux modèle j’ajoute cette commande pour installer les pilotes idoines. (????)
+//Pas sur que le mien soit comme ça mais je l'ai installé pour le kif
+
+sudo apt-get install libacr38u
+
+Ensuite, il faut installer le logiciel eID:
+
+Pour virer une éventuelle installation précédente, car comme d’hab, on a chipoté avant de venir s’informer ici ;-)
+sudo apt-get purge *beid*
+
+Il faut charger le logiciel belge et son middleware sur la page de téléchargement:
+http://eid.belgium.be/fr/utiliser_votre_eid/installer_le_logiciel_eid/linux/
+
+Une fois téléchargés, il faut installer d’abord le middleware, ensuite l’eID Viewer.
+
+http://eid.belgium.be/fr/utiliser_votre_eid/installer_le_logiciel_eid/linux/

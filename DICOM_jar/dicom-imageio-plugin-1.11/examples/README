@@ -1,0 +1,94 @@
+
+WarningListener: a class implementing a trivial warning listener and used by 
+other classes.
+
+TestRead1: reads an image file of any format supported by ImageIO and 
+displays the image in a swing window. Only the first frame of 
+multi-frames file is displayed.
+
+TestRead2: reads a DICOM file and displays the first frame in a swing 
+window after applying possible grayscale transforms (Modality, VOI and 
+Presentation LUT).
+
+Dump: dumps the dicom meta data of a DICOM file.
+
+TestQueryRetrieveSCU: browses the hierarchy of objects in a remote query SCP, 
+retrieves objects related to a choice of patient/study/series/instance and 
+stores them locally. The address and AE title of the remote query SCP
+must be changed in the PeerAE constructor call.  This example uses the 
+C-GET by default, but this is seldom supported by archive server.
+To try C-MOVE, use the -move command line option, and ensure
+that the AE title of the Q/R SCU is registered in the Q/R SCP configuration
+with the correct IP address and port number. On unix/linux, with
+the -move command, run the class as superuse, or specify a port greater than
+1024 in the StorageSCP constructor.
+
+TestQueryRetrieveSCP: acts as a query/retrieve SCP, serving a single object,
+contained in the file supplied in argument. On unix/linux, run this class as
+superuser or specify a port greater than 1024 in the QueryRetrieveSCP 
+constructor call. If the SCU will send a C-MOVE command, its application 
+title, IP address and port must be registered in the SCP: change the call to
+registerAE accordingly.
+
+WriteSimple: converts a mono-frame image file to dicom.
+
+Write: converts an image file to dicom. Supports multi-frame and uses 
+metadata from the input file.
+
+WriteCompressed: like Write, but write one dicom file for each supported output compressed transfer syntax.
+
+TestStorageSCP: listens on the default 104 port for an incoming STORE 
+message, writes the received object to file "testscp.dcm" and exits. 
+On unix/linux, run this class as superuser or specify a port greater than 
+1024 in the StorageSCP constructor call. If the -secure flag is passed, 
+a secure transport will be used and the server will listen on port 2762 
+instead of 104. A valid certificate must have been stored in a keystore 
+file and the javax.net.ssl.keyStore and javax.net.ssl.keyStorePassword 
+properties must be set. If the -raw flag is passed, received instanced are 
+written to disk as is, without any decoding of metadata or pixel data.
+
+TestStorageSCU: reads a file locally and send the DICOM object it contains to a
+remote Storage SCP. Change the address, port and AE title in the PeerAE
+constructor call. If the -secure flag is passed, a connexion to the SCP
+using secure transport will be used. If the -raw flag is passed, the
+file is read without any decoding of metadata and pixel data and
+the object is sent to the SCP as is. If the -commit flag is passed, the SCP 
+is requested to safekeep the object using the Storage Commitment Service Class.
+
+TestStorageCommitmentSCU: sends a request to a Storage Commitment SCP. 
+Change the address, port and AE title in the PeerAE constructor call.
+Also change the SOP instance and SOP class of the object the
+storage commitment is requested for. The SCP must have received
+the object before, by TestStorageSCU or another mean.
+
+TestStorageCommitmentSCP: implements a simple Storage Commitment SCP 
+that accepts to safekeep all instances which it receives requests for.
+The SCU must be know to the SCP so that an association can be established
+by the SCP to send the result. Change the address, port and AE title
+of the SCU.
+
+TestStorageCommitmentSCP2: like TestStorageCommitmentSCP but using a 
+listener to receive requests.
+
+Raw: reads and writes a file with raw values.
+
+FileSetRead: reads a DICOMDIR file and print out its content.
+
+FileSetWrite: creates a DICOMDIR file in the current directory from a 
+supplied list of files.
+
+TestVerificationSCU: verifies that a remote application entity is running
+and reachable.
+
+ConvertToJpeg: converts a DICOM file to one JPEG file per frame.
+
+ExtractPDF: extracts a PDF file from a DICOM file containing an instance 
+of the Encapsulated PDF Storage SOP class.
+
+EncapsulatePDF: encapsulates a PDF file into a DICOM file using the
+Encapsulated PDF Storage SOP class.
+
+TestBasicWorklistManagementSCU: sends a query to a Basic Worklist Management
+SCP and display the result. Change the address, port, AE title in the
+PeerAE constructor call. Also try to change the matching keys and return keys
+to control the result.
